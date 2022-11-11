@@ -1,8 +1,22 @@
-<p-confirmPopup></p-confirmPopup>
 <div class="p-grid">
     <div class="p-col-12">
         <div class="card">
-            <p-toolbar styleClass="p-mb-4">
+            <div class="field">
+                <h5>TODO Category</h5>
+                <!-- <div class="grid"> -->
+                    <div class="field-radiobutton col-2">
+                        <p-radioButton inputId="categoryPending" name="category" value="2" [(ngModel)]="todoCategory" (onClick)="todoCategoryChanged(2)">
+                        </p-radioButton>
+                        <label for="categoryPending">Pendings</label>
+                    </div>
+                    <div class="field-radiobutton col-2">
+                        <p-radioButton inputId="categoryOverdues" name="category" value="1" [(ngModel)]="todoCategory" (onClick)="todoCategoryChanged(1)">
+                        </p-radioButton>
+                        <label for="categoryOverdues">Overdues</label>
+                    </div>
+                <!-- </div> -->
+            </div>
+            <p-toolbar>
                 <ng-template pTemplate="left">
                     <button pButton pRipple label="Add Todo" icon="pi pi-plus"
                         class="p-button-outlined p-button p-mr-2 p-mb-2" (click)="showTodoEditDialog()"></button>
@@ -33,29 +47,36 @@
                         </td>
                         <td width="15%" style="text-align: center;">
                             <span class="p-column-title">isComplated</span>
-                            <p-inputSwitch  [(ngModel)]="todo.isComplated" (onChange)="changeActive(todo)"></p-inputSwitch>
+                            <p-inputSwitch [(ngModel)]="todo.isComplated" (onChange)="changeActive(todo)">
+                            </p-inputSwitch>
                         </td>
                         <td width="15%" style="text-align: center;vertical-align: middle;">
                             <span class="p-column-title">Actions</span>
-                            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-outlined p-button-rounded p-button-info mr-2" (click)="showTodoEditDialog(todo)" pTooltip="Edit" tooltipPosition="top"></button>
-                            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-outlined p-button-rounded p-button-danger mr-2" (click)="confirmDelete($event,todo.id)" pTooltip="Delete" tooltipPosition="top"></button>
+                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                class="p-button-outlined p-button-rounded p-button-info mr-2"
+                                (click)="showTodoEditDialog(todo)" pTooltip="Edit" tooltipPosition="top"></button>
+                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                class="p-button-outlined p-button-rounded p-button-danger mr-2"
+                                (click)="confirmDelete($event,todo.id)" pTooltip="Delete"
+                                tooltipPosition="top"></button>
                         </td>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="emptymessage" >
+                <ng-template pTemplate="emptymessage">
                     <tr>
                         <td colspan="3">
                             No Records!
                         </td>
                     </tr>
                 </ng-template>
-        </p-table>
-    </div>
+            </p-table>
+        </div>
     </div>
 </div>
 
 
-<p-dialog [(visible)]="todoEditDialog" [style]="{width: '30vw'}" [breakpoints]="{'960px': '95vw'}" styleClass="p-fluid" header="Todo Item">
+<p-dialog [(visible)]="todoEditDialog" [style]="{width: '30vw'}" [breakpoints]="{'960px': '95vw'}" styleClass="p-fluid"
+    header="Todo Item">
     <ng-template pTemplate="content">
         <todo-save [(todoListDto)]="selectedTodo" (resultState)="saveResult($event)"></todo-save>
     </ng-template>
