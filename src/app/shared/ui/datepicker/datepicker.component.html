@@ -1,6 +1,7 @@
 <span class="p-float-label">
     <p-calendar [minDate]="minDateValue" [maxDate]="maxDateValue" appendTo="body" (onClose)="onClosed()"
         [ngClass]="class"
+        [showButtonBar]="true"
         [(ngModel)]="dateValue" dateFormat="dd.mm.yy" [showIcon]="true" (onSelect)="dateChanged()">
     </p-calendar>
     <label>Tarih</label>
