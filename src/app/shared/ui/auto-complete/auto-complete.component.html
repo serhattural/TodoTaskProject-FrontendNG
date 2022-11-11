@@ -1,0 +1,23 @@
+<span class="p-float-label">
+    <p-autoComplete
+        [required]="required"
+        appendTo="body"
+        [ngClass]="ngClass"
+        [(ngModel)]="selectedItems"
+        [suggestions]="filteredList"
+        [size]="1"
+        [multiple]="true"
+        (completeMethod)="filter($event)"
+        (onSelect)="selectedItemsReturn()"
+        [minLength]="minLength"
+        (onFocus)="onFocus()"
+        (onBlur)="onBlur()"
+        (onUnselect)="onUnselect()"
+        [placeholder]="placeholderText"
+        [(ngModel)]="selectedItems"
+        [field]="field">
+    </p-autoComplete>
+
+    <label>{{labelText}}</label>
+</span>
+

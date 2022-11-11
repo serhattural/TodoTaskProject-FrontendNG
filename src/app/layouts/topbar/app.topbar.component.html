@@ -1,0 +1,41 @@
+<div class="layout-topbar shadow-4">
+    <div class="layout-topbar-left">
+        <a class="layout-topbar-logo" style="justify-content:unset;padding-left: 0.5rem;" routerLink="/admin">
+            <img src="assets/images/bakanlik_logo.png" alt="Bakanlık Logo" style="height: 3rem">
+        </a>
+
+        <a class="layout-menu-button shadow-6" (click)="appMain.onMenuButtonClick($event)" pRipple>
+            <i class="pi pi-chevron-right"></i>
+        </a>
+
+        <a class="layout-topbar-mobile-button" (click)="appMain.onTopbarMobileButtonClick($event)" pRipple>
+            <i class="pi pi-ellipsis-v fs-large"></i>
+        </a>
+    </div>
+
+    <div class="layout-topbar-right" [ngClass]="{'layout-topbar-mobile-active': appMain.mobileTopbarActive}">
+        <div class="layout-topbar-actions-left">
+            <p-megaMenu styleClass="layout-megamenu"></p-megaMenu>
+        </div>
+        <div class="layout-topbar-actions-right">
+            <ul class="layout-topbar-items">
+                <li class="layout-topbar-item">
+                    <a class="layout-topbar-action p-d-flex p-dir-row p-jc-center p-ai-center p-px-2" (click)="appMain.onTopbarItemClick($event, 'profile')" pRipple>
+                        <img src="assets/images/user.png" alt="avatar" style="width: 32px; height: 32px; margin-right: 5px;">
+                        <span>Serhat Tural</span>
+                    </a>
+
+                    <ul class="layout-topbar-action-panel shadow-6" [@topbarActionPanelAnimation]="'visible'" style="min-width: 10rem;" *ngIf="appMain.activeTopbarItem === 'profile'">
+
+                        <li class="layout-topbar-action-item" (click)="logout()">
+                            <a class="flex flex-row align-items-center" pRipple>
+                                <i class="pi pi-power-off" [ngClass]="{'mr-2': !app.isRTL, 'ml-2': app.isRTL}"></i>
+                                <span>Çıkış Yap</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
