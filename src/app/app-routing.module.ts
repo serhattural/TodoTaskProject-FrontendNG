@@ -4,13 +4,13 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 
 const routes: Routes = [
     {
-    path: 'admin', component: MainLayoutComponent, data:{ breadcrumb:{label:'Yönetici',url:'/admin/dashboard'}}, children:
+    path: 'admin', component: MainLayoutComponent, data:{ breadcrumb:{label:'Admin',url:'/admin/todos'}}, children:
         [
-            { path: 'periods', data:{ breadcrumb:{label:'TODO List'}}, loadChildren: () => import('./pages/admin/period/period.module').then(m => m.PeriodModule) },
-            { path: '**', redirectTo: '/admin/periods'}
+            { path: 'todos', data:{ breadcrumb:{label:'TODO List'}}, loadChildren: () => import('./pages/admin/todo/todo.module').then(m => m.TodoModule) },
+            { path: '**', redirectTo: '/admin/todos'}
         ]
     },
-    { path: '**', redirectTo: ''},
+    { path: '**', redirectTo: '/admin/todos'},
 ];
 
 @NgModule({

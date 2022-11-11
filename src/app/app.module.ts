@@ -26,7 +26,7 @@ FullCalendarModule.registerPlugins([
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     text:'Waiting...',
-    logoUrl:"../assets/images/varank6.gif",
+    logoUrl:"../assets/images/loading.gif",
     logoPosition:'center-center',
     fgsSize:0,
     masterLoaderId:'master'
