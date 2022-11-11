@@ -36,7 +36,7 @@ export class AppBreadcrumbComponent implements OnDestroy {
 
 
   static readonly ROUTE_DATA_BREADCRUMB = 'breadcrumb';
-  readonly home = { icon: 'pi pi-home', routerLink: '/admin/dashboard' };
+  readonly home = { icon: 'pi pi-home', routerLink: '/todo/todo-list' };
   menuItems: MenuItem[];
 
 

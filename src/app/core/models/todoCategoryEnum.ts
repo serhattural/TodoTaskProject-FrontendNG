@@ -1,4 +1,4 @@
 export enum TodoCategoryEnum {
-    Overdues = 1,
-    Pendings = 2
+    Overdue = 1,
+    Pending = 2
 }

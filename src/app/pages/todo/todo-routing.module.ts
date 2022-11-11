@@ -3,7 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { TodoListComponent } from './todo-list/todo-list.component';
 
 const routes: Routes = [ 
-  { path: 'todo-list', component: TodoListComponent, data:{ breadcrumb:{label:'Todo List'}} }]
+  { path: '', redirectTo: 'todo-list', pathMatch: 'full'},
+  { path: 'todo-list', component: TodoListComponent, data:{ breadcrumb:{label:'List'}} },
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

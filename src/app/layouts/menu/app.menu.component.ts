@@ -25,7 +25,7 @@ export class AppMenuComponent implements OnInit {
                 label: 'Main',
                 icon: 'pi pi-fw pi-id-card',
                 items: [
-                    { label: 'Todo List', routerLink: ['/admin/todos/todo-list'] },
+                    { label: 'Todo List', routerLink: ['/todo/todo-list'] },
                 ]
             },
         );

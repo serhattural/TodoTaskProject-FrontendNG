@@ -16,7 +16,8 @@ export class TodoListComponent implements OnInit {
   submitted: boolean = false;
   todoEditDialog: boolean;
   selectedTodo: TodoItemDto;
-  todoCategory: TodoCategoryEnum = TodoCategoryEnum.Pendings;
+  todoCategory: TodoCategoryEnum = TodoCategoryEnum.Pending;
+  todoFilterEnum = TodoCategoryEnum;
 
   constructor(
     private messageService: MessageService,
@@ -25,29 +26,30 @@ export class TodoListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getPendingTodos();
+    this.getTodoList();
   }
 
-  todoCategoryChanged(selectedCategory: TodoCategoryEnum) {
-    if (selectedCategory == TodoCategoryEnum.Pendings) {
-      this.getPendingTodos();
-    } else if (selectedCategory == TodoCategoryEnum.Overdues) {
-      this.getOverdueTodos();
+  todoCategoryChanged() {
+    this.getTodoList();
+  }
+
+  getTodoList() {
+    if (this.todoCategory == TodoCategoryEnum.Pending) {
+      this.todoService.apiTodoItemPendingGet().subscribe(t => {
+        this.list = t;
+      });
+    } else if (this.todoCategory == TodoCategoryEnum.Overdue) {
+      this.todoService.apiTodoItemOverdueGet().subscribe(t => {
+        this.list = t;
+      });
     }
   }
 
-  getPendingTodos() {
-    this.todoService.apiTodoItemPendingGet().subscribe(t => {
-      this.list = t;
-    });
+  markAsDone(todo: TodoItemDto) {
+    todo.isComplated = true;
+    this.todoService.apiTodoItemIdPut(todo.id, todo).subscribe(result => { this.getTodoList(); });
   }
-
-  getOverdueTodos() {
-    this.todoService.apiTodoItemOverdueGet().subscribe(t => {
-      this.list = t;
-    });
-  }
-
+  
   showTodoEditDialog(todo: TodoItemDto) {
     this.selectedTodo = todo;
     this.todoEditDialog = true;
@@ -56,7 +58,7 @@ export class TodoListComponent implements OnInit {
   saveResult(result: boolean) {
     if (result) {
       this.todoEditDialog = false;
-      this.getPendingTodos();
+      this.getTodoList();
     } else {
       this.todoEditDialog = false;
     }
@@ -72,7 +74,7 @@ export class TodoListComponent implements OnInit {
       accept: () => {
         this.todoService.apiTodoItemPost().subscribe(result => {
           this.messageService.add({ severity: 'success', summary: 'Todo Message', detail: "Update Successfully", life: 3000 });
-          this.getPendingTodos();
+          this.getTodoList();
           this.confirmationService.close();
         });
       },
@@ -80,10 +82,6 @@ export class TodoListComponent implements OnInit {
         this.confirmationService.close();
       }
     });
-  }
-
-  changeActive(todo: TodoItemDto) {
-    this.todoService.apiTodoItemIdPut(todo.id, todo).subscribe(result => { this.getPendingTodos(); });
   }
 }
 

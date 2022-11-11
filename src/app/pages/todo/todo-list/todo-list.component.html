@@ -3,18 +3,18 @@
         <div class="card">
             <div class="field">
                 <h5>TODO Category</h5>
-                <!-- <div class="grid"> -->
-                    <div class="field-radiobutton col-2">
-                        <p-radioButton inputId="categoryPending" name="category" value="2" [(ngModel)]="todoCategory" (onClick)="todoCategoryChanged(2)">
+                <div class="flex">
+                    <div class="col-1">
+                        <p-radioButton inputId="categoryPending" name="category" value="{{todoFilterEnum.Pending}}" [(ngModel)]="todoCategory" (onClick)="todoCategoryChanged()">
                         </p-radioButton>
                         <label for="categoryPending">Pendings</label>
                     </div>
-                    <div class="field-radiobutton col-2">
-                        <p-radioButton inputId="categoryOverdues" name="category" value="1" [(ngModel)]="todoCategory" (onClick)="todoCategoryChanged(1)">
+                    <div class="col-1">
+                        <p-radioButton inputId="categoryOverdues" name="category" value="{{todoFilterEnum.Overdue}}" [(ngModel)]="todoCategory" (onClick)="todoCategoryChanged()">
                         </p-radioButton>
                         <label for="categoryOverdues">Overdues</label>
                     </div>
-                <!-- </div> -->
+                </div>
             </div>
             <p-toolbar>
                 <ng-template pTemplate="left">
@@ -29,36 +29,45 @@
                 currentPageReportTemplate="Total {totalRecords} records, showing {first} - {last}">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th width="70%" pSortableColumn="title" class="bg-lightgray">
+                        <th width="65%" pSortableColumn="title" class="bg-lightgray">
                             Todo
-                            <p-sortIcon field="title"></p-sortIcon>
                         </th>
-                        <th width="15%" class="bg-lightgray" style="text-align: center;">
-                            isComplated
+                        <th width="10%" class="bg-lightgray" style="text-align: center;">
+                            Due Date
                         </th>
+                        <!-- <th width="10%" class="bg-lightgray" style="text-align: center;">
+                            Is Complated
+                        </th> -->
                         <th width="15%" class="bg-lightgray">Actions</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-todo let-columns="columns">
                     <tr>
-                        <td width="70%">
+                        <td width="65%">
                             <span class="p-column-title">Adı</span>
                             {{todo.title}}
                         </td>
-                        <td width="15%" style="text-align: center;">
-                            <span class="p-column-title">isComplated</span>
-                            <p-inputSwitch [(ngModel)]="todo.isComplated" (onChange)="changeActive(todo)">
-                            </p-inputSwitch>
+                        <td width="10%" style="text-align: center;">
+                            <span class="p-column-title">DueDate</span>
+                            {{todo.dueDate | date: 'MM/dd/yyyy'}}
                         </td>
+                        <!-- <td width="10%" style="text-align: center;">
+                            <span class="p-column-title">isComplated</span>
+                            <p-inputSwitch [(ngModel)]="todo.isComplated" (onChange)="markAsDone(todo)">
+                            </p-inputSwitch>
+                        </td> -->
                         <td width="15%" style="text-align: center;vertical-align: middle;">
                             <span class="p-column-title">Actions</span>
+                            <button pButton pRipple type="button" icon="pi pi-check"
+                                class="p-button-outlined p-button-rounded p-button-success mr-2"
+                                (click)="markAsDone(todo)" pTooltip="Mark as Done" tooltipPosition="top"></button>
                             <button pButton pRipple type="button" icon="pi pi-pencil"
                                 class="p-button-outlined p-button-rounded p-button-info mr-2"
                                 (click)="showTodoEditDialog(todo)" pTooltip="Edit" tooltipPosition="top"></button>
-                            <button pButton pRipple type="button" icon="pi pi-trash"
+                            <!-- <button pButton pRipple type="button" icon="pi pi-trash"
                                 class="p-button-outlined p-button-rounded p-button-danger mr-2"
                                 (click)="confirmDelete($event,todo.id)" pTooltip="Delete"
-                                tooltipPosition="top"></button>
+                                tooltipPosition="top"></button> -->
                         </td>
                     </tr>
                 </ng-template>
